@@ -1,5 +1,4 @@
-The following are prep tasks and commands to run the sample program under the src directory.  The program demonstrates how to transpose data in HDFS in a flat layout 
-to an Accumulo layout, and write it back to HDFS
+The following are prep tasks and commands to run the sample program under the src directory.  The program demonstrates how to transpose data in HDFS in a flat layout to an Accumulo layout, and write it back to HDFS
 
 1.  Create a file with some data
 ==================================
