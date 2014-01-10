@@ -1,5 +1,5 @@
 The following are commands to run the sample program under the src directory.
-It demonstrates how to use the Cascading extensions for Accumulo to read data in
+The program demonstrates how to use the Cascading extensions for Accumulo to read data in
 Accumulo.
 
 
