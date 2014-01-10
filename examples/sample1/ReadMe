@@ -1,3 +1,6 @@
+The following are commands to run the sample program that uses Cascading to perform table operations in Accumulo.
+
+
 a) Run the program with parameter createTable
 ====================================================
 
@@ -14,7 +17,7 @@ trace
 b) Run the program with parameter createTableWithSplits
 ========================================================
 
-hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://watson?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" "createTableWithSplits" "D,L"
+hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://watson?instance=indra&user=root&password= xxxxxxx&zookeepers=cdh-dn01:2181" "createTableWithSplits" "D,L"
  
 Verify in Accumulo
 ===================
@@ -28,18 +31,18 @@ watson
 c) Run the program with parameter checkIfTableExists
 ====================================================
 
-hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://watson?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" "checkIfTableExists"
+hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://watson?instance=indra&user=root&password= xxxxxxx&zookeepers=cdh-dn01:2181" "checkIfTableExists"
 ....
 The table exists!
 
-hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://maachuPichu?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" "checkIfTableExists"
+hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://maachuPichu?instance=indra&user=root&password= xxxxxxx&zookeepers=cdh-dn01:2181" "checkIfTableExists"
 ...
 The table  does not exist!
 
 d) Run the program with parameter deleteTable
 ====================================================
 
-hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://sherlock?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" "deleteTable" 
+hadoop jar cascadingSamples/accumuloTapSample/jars/tableOperationsSample.jar TableOperationsSample "accumulo://sherlock?instance=indra&user=root&password= xxxxxxx&zookeepers=cdh-dn01:2181" "deleteTable" 
 ..
 The table was deleted successfully!
 
