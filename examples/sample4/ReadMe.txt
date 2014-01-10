@@ -1,13 +1,27 @@
+The following are prep tasks and commands to run the sample program under the src directory.  The program demonstrates how to read formatted data in HDFS and write it to Accumulo.
+
+Format of input 
+============================================
+[rowID	colFamily	colQualifier	colVis	colTimestamp	colValue]
+
+10003	employee	DOB		1389333718333	1959-12-03
+10003	employee	FName		1389333718333	Parto
+10003	employee	LName		1389333718333	Bamford
+10003	employee	Gender		1389333718333	M
+10003	employee	HireDate		1389333718333	1986-08-28
+10003	employee	DeptID		1389333718333	d004
+
+Record count of input
+============================================
+hadoop fs -cat cascadingSamples/data/employeeDB/employees_active  | wc -l
+224683
+
+
 Create table in Accumulo
 ============================================
 
 root@indra> createtable employeeDB_employee
 root@indra employeeDB_employee> 
-
-Record count
-============================================
-224683
-[From example 3 in the series]
 
 
 Run the program
@@ -47,15 +61,17 @@ root@indra employeeDB_employee> scan -b 100004 -e 100005
 100005 employee:DOB []    1958-03-09
 
 c) Exit accumulo shell to count the number of records from Linux command line:
-[root@cdh-dn01 accumulo]# ./bin/accumulo shell -u root -p sun123123 -e "scan -np -t employeeDB_employee" | wc -l 
+
+./bin/accumulo shell -u root -p sun123123 -e "scan -np -t employeeDB_employee" | wc -l 
+
 224684
 
-d) Don’t forget to delete the iterator
+d) Delete the iterator
 deleteiter -t employeeDB_employee -n firstEntry -scan
 
 e) Verify if the iterator has been deleted
 listiter -t employeeDB_employee -scan
 
-You should not see firstEntry iterator in the output
+firstEntry iterator should not be listed in the output
 
 
