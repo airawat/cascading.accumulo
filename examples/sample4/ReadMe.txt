@@ -66,6 +66,8 @@ c) Exit accumulo shell to count the number of records from Linux command line:
 
 224684
 
+You will see an extra record - this is created by Accumulo and should be disregarded in the count.
+
 d) Delete the iterator
 deleteiter -t employeeDB_employee -n firstEntry -scan
 
