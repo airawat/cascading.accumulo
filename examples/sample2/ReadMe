@@ -1,0 +1,45 @@
+Create table in Accumulo
+========================
+
+root@indra > createtable 221BakerStreet
+root@indra 221BakerStreet> 
+
+Insert some sample data
+========================
+
+insert "b001" "Book" "Name" "A study in scarlet"
+insert "b001" "Book" "Published" "1887" 
+
+insert "b002" "Book" "Name" "A sign of four"
+insert "b002" "Book" "Published" "1890"
+
+insert "b003" "Book" "Name" "The adventures of Sherlock Holmes"
+insert "b003" "Book" "Published" "1892"
+
+insert "b004" "Book" "Name" "The memoirs of Sherlock Holmes"
+insert "b004" "Book" "Published" "1893"
+
+insert "b005" "Book" "Name" "The hounds of Baskerville"
+insert "b005" "Book" "Published" "1901"
+
+insert "b006" "Book" "Name" "The return of Sherlock Holmes"
+insert "b006" "Book" "Published" "1905"
+
+
+Run the program
+====================================================
+hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloAndPrint.jar ReadAccumuloAndPrint "accumulo://221BakerStreet?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" "rowKeyRangeStart=b001&rowKeyRangeEnd=b008"
+
+fields: ['rowID', 'colF', 'colQ', 'colVis', 'colTimestamp', 'colVal'] 
+tuple: ['b001', 'Book', 'Name', '', '1389331650617', 'A study in scarlet']
+tuple: ['b001', 'Book', 'Published', '', '1389331650629', '1887']
+tuple: ['b002', 'Book', 'Name', '', '1389331650645', 'A sign of four']
+tuple: ['b002', 'Book', 'Published', '', '1389331650657', '1890']
+tuple: ['b003', 'Book', 'Name', '', '1389331650674', 'The adventures of Sherlock Holmes']
+tuple: ['b003', 'Book', 'Published', '', '1389331650687', '1892']
+tuple: ['b004', 'Book', 'Name', '', '1389331650705', 'The memoirs of Sherlock Holmes']
+tuple: ['b004', 'Book', 'Published', '', '1389331650721', '1893']
+tuple: ['b005', 'Book', 'Name', '', '1389331650744', 'The hounds of Baskerville']
+tuple: ['b005', 'Book', 'Published', '', '1389331650757', '1901']
+tuple: ['b006', 'Book', 'Name', '', '1389331650774', 'The return of Sherlock Holmes']
+tuple: ['b006', 'Book', 'Published', '', '1389331651834', '1905']
