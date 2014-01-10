@@ -26,7 +26,7 @@ root@indra employeeDB_employee>
 
 Run the program
 ============================================
-hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloFileWritetoAccumulo.jar ReadFormattedFileWriteToAccumulo "cascadingSamples/Output-transposeToAccumuloLayout/part*" "cascadingSamples/Trap-ReadFormattedFileWriteToAccumulo" "accumulo://employeeDB_employee?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" 
+hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloFileWritetoAccumulo.jar ReadFormattedFileWriteToAccumulo "cascadingSamples/Output-transposeToAccumuloLayout/part*" "cascadingSamples/Trap-ReadFormattedFileWriteToAccumulo" "accumulo://employeeDB_employee?instance=indra&user=root&password=xxxxx&zookeepers=cdh-dn01:2181" 
 
 Verify results in Accumulo
 ============================================
