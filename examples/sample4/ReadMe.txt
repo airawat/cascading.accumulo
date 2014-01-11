@@ -62,7 +62,7 @@ root@indra employeeDB_employee> scan -b 100004 -e 100005
 
 c) Exit accumulo shell to count the number of records from Linux command line:
 
-./bin/accumulo shell -u root -p sun123123 -e "scan -np -t employeeDB_employee" | wc -l 
+./bin/accumulo shell -u root -p xxxxxxx -e "scan -np -t employeeDB_employee" | wc -l 
 
 224684
 
