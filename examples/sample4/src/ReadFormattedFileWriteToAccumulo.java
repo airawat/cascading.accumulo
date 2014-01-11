@@ -59,7 +59,7 @@ public class ReadFormattedFileWriteToAccumulo {
 		HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
 		Tap sourceTapHDFS = new MultiSourceTap(sourceFilesGlob);
 		
-		
+		/*
 		TupleEntryIterator tei = sourceTapHDFS.openForRead(hfp);
 		if(!tei.equals(null))
 		{
@@ -69,7 +69,7 @@ public class ReadFormattedFileWriteToAccumulo {
 			}
 			tei.close();
 		}
-		
+		*/
 		//}}
 
 		// {{
