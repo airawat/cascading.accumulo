@@ -5,7 +5,7 @@ Input data format
 EmpID,DOB,FName,LName,Gender,HireDate,DeptID
 10003,1959-12-03,Parto,Bamford,M,1986-08-28,d004
 
-Input fields & output fields - just FYI
+Input fields & output fields
 =================================================
 Input=[EmpID","DOB","FName","LName","Gender","HireDate","DeptID”]
 Output=["rowID", "colF", "colQ", "colVis", "colTimestamp", "colVal”]
