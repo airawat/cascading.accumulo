@@ -1,4 +1,4 @@
-The following are prep tasks and commands to run the sample program under the src directory.  The program demonstrates how to read data in Accumulo and write it back to Accumulo using the Cascading extensions for Accumulo.
+The sample program in the “src” directory demonstrates how to read data in Accumulo and write it back to Accumulo using the Cascading extensions for Accumulo.
 
 Create table in Accumulo
 ============================================

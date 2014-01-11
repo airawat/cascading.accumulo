@@ -1,6 +1,6 @@
-The following are commands to run the sample program under the src directory.
-The program demonstrates how to use the Cascading extensions for Accumulo to read data in
-Accumulo.
+The sample program in the “src” directory demonstrates how to use the Cascading extensions for Accumulo to read data in Accumulo.
+
+The following are steps to create data, run the sample program and view results.
 
 
 Create table in Accumulo

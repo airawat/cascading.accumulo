@@ -1,4 +1,4 @@
-The following are prep tasks and commands to run the sample program under the src directory.  The program demonstrates how to read formatted data in HDFS and write it to Accumulo.
+The sample program in the “src” directory demonstrates how to read (pre-formatted) data in HDFS and write it to Accumulo.
 
 Format of input 
 ============================================
@@ -49,6 +49,7 @@ root@indra employeeDB_employee> scan -b 100004 -e 100005
 
 Verify counts in Accumulo table
 ============================================
+To check the record count in Accumulo of distinct row keys-
 
 a) Attach the iterator - FirstEntryInRowIterator - this will return only the first record for each rowID
 root@indra employeeDB_employee> setiter -t employee -class org.apache.accumulo.core.iterators.FirstEntryInRowIterator -scan -p 109
