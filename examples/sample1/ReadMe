@@ -1,6 +1,6 @@
 The sample program in the src directory demonstrates how to use the Cascading extensions for Accumulo to perform table operations.
-The following are commands to run the sample program.
 
+The following are commands to run the sample program.
 
 a) Run the program with parameter createTable
 ====================================================

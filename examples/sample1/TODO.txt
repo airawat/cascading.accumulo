@@ -1,0 +1,14 @@
+Functionality to add
+========================================
+Flush
+RegexFilter
+WriteThreads
+RowFilter
+GrepIterator
+ReqVisFilter
+RowDeletingIterator
+RowFilter
+SummingCombiner
+TimestampFilter
+LargeRowFilter
+Compact
