@@ -47,11 +47,13 @@ public class ReadAccumuloWriteToAccumuloSample {
 					new AccumuloScheme(accumuloSourceScheme),
 					SinkMode.REPLACE);
 
+			/*
 			TupleEntryIterator tei = sourceTapAccumulo.openForRead(hfp);
 			while (tei.hasNext()) {
 				System.out.println(tei.next());
 			}
 			tei.close();
+			*/
 			// }}
 
 			// {{
