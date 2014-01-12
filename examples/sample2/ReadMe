@@ -33,7 +33,7 @@ insert "b006" "Book" "Published" "1905"
 
 Run the program
 ====================================================
-hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloAndPrint.jar ReadAccumuloAndPrint "accumulo://221BakerStreet?instance=indra&user=root&password=xxxxx&zookeepers=cdh-dn01:2181" "rowKeyRangeStart=b001&rowKeyRangeEnd=b008"
+hadoop jar <<pathToJar>>/readAccumuloAndPrintSample.jar ReadAccumuloAndPrintSample "accumulo://221BakerStreet?instance=inst&user=root&password=xxxxx&zookeepers=zooserver:2181" "rowKeyRangeStart=b001&rowKeyRangeEnd=b008"
 
 fields: ['rowID', 'colF', 'colQ', 'colVis', 'colTimestamp', 'colVal'] 
 tuple: ['b001', 'Book', 'Name', '', '1389331650617', 'A study in scarlet']

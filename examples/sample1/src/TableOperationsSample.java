@@ -1,3 +1,4 @@
+
 package cascading.accumulo;
 
 import java.util.Properties;
@@ -84,7 +85,33 @@ public class TableOperationsSample {
 
 			System.out.println("The table " + " was "
 					+ (tblOpStatus ? "deleted successfully!" : "not deleted!"));
+			
+		} else if (tableOperation.equals("flushTable")) {
 
+			AccumuloTap accumuloTapTblOps;
+			accumuloTapTblOps = new AccumuloTap(accumuloURI,
+					new AccumuloScheme());
+
+			boolean tblOpStatus = accumuloTapTblOps.flushResource(conf);
+
+			System.out.println("The table " + " was "
+					+ (tblOpStatus ? "flushed successfully!" : "not flushed!"));
+			
+		} else if (tableOperation.equals("flushTableKeyRange")) {
+
+			AccumuloTap accumuloTapTblOps;
+			accumuloTapTblOps = new AccumuloTap(accumuloURI,
+					new AccumuloScheme());
+			
+			//Provide key range
+			conf.set("rowKeyRangeStart", "b001");
+			conf.set("rowKeyRangeEnd", "b004");
+
+			boolean tblOpStatus = accumuloTapTblOps.flushResource(conf);
+
+			System.out.println("The table " + " was "
+					+ (tblOpStatus ? "flushed successfully for the key range provided!" : "not flushed!"));
+			
 		} else {
 			System.out.println("Could not match table operation - "
 					+ tableOperation);

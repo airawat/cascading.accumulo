@@ -1,8 +1,8 @@
 Functionality to add
 ========================================
-Flush
-RegexFilter
-WriteThreads
+Flush - Added
+RegexFilter - WIP
+WriteThreads - To be tested
 RowFilter
 GrepIterator
 ReqVisFilter

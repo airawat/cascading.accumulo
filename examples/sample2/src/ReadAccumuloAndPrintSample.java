@@ -18,7 +18,7 @@ public class ReadAccumuloAndPrintSample {
 
 	public static void main(String[] args) throws Exception {
 		// {{
-		// JOB RELATED
+		// JOB 
 		JobConf jobConf = new JobConf();
 		jobConf.setJarByClass(ReadAccumuloAndPrintSample.class);
 
@@ -30,22 +30,21 @@ public class ReadAccumuloAndPrintSample {
 
 		// {{
 		// ARGUMENTS
-		String accumuloURI = args[1].toString();
-		String accumuloScheme = args[2].toString();
+		String accumuloConnectionString = args[1].toString();
+		String accumuloQueryCriteria = args[2].toString();
 
 		// }}
 
 		// {{
 		// READ and PRINT to standard out
 		HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
-		AccumuloTap sourceTapAccumulo = new AccumuloTap(accumuloURI,
-				new AccumuloScheme(accumuloScheme));
+		AccumuloTap sourceTapAccumulo = new AccumuloTap(accumuloConnectionString,
+				new AccumuloScheme(accumuloQueryCriteria));
 		TupleEntryIterator tei = sourceTapAccumulo.openForRead(hfp);
 		while (tei.hasNext()) {
 			System.out.println(tei.next());
 		}
 		tei.close();
-
 		// }}
 
 	}
