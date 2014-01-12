@@ -1,5 +1,8 @@
 The following are sample programs to demonstrate how to use Cascading[2.5.1] extensions for Accumulo[1.5.0].  The cascading.accumulo project is a work in progress.
 
+Sample program 7 covers reading from HDFS, transposing, and writing to Accumulo.
+
+
 Sample program 1:
 ===================
 Covers the table operations- create table, create table with splits, check if table exists, delete table, flush table, flush a key range
