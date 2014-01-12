@@ -13,24 +13,26 @@ Format of input
 
 Record count of input
 ============================================
-hadoop fs -cat cascadingSamples/data/employeeDB/employees_active  | wc -l
+hadoop fs -cat <<pathToInputFile>>  | wc -l
 224683
 
 
 Create table in Accumulo
 ============================================
 
-root@indra> createtable employeeDB_employee
-root@indra employeeDB_employee> 
-
+createtable employee
+ 
 
 Run the program
 ============================================
-hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloFileWritetoAccumulo.jar ReadFormattedFileWriteToAccumulo "cascadingSamples/Output-transposeToAccumuloLayout/part*" "cascadingSamples/Trap-ReadFormattedFileWriteToAccumulo" "accumulo://employeeDB_employee?instance=indra&user=root&password=xxxxx&zookeepers=cdh-dn01:2181" 
+
+hadoop jar <<pathTojar>>/readFormattedFileWriteToAccumulo.jar ReadFormattedFileWriteToAccumulo “<<pathToInputFile>>” “<<pathToTrapFile>>”  "accumulo://employee?instance=inst&user=root&password=xxxx&zookeepers=zooserver:2181" 
+
+
 
 Verify results in Accumulo
 ============================================
-root@indra employeeDB_employee> scan -b 100004 -e 100005
+employee> scan -b 100004 -e 100005
 
 100004 employee:DOB []    1960-04-16
 100004 employee:DeptID []    d007
@@ -52,28 +54,28 @@ Verify counts in Accumulo table
 To check the record count in Accumulo of distinct row keys-
 
 a) Attach the iterator - FirstEntryInRowIterator - this will return only the first record for each rowID
-root@indra employeeDB_employee> setiter -t employee -class org.apache.accumulo.core.iterators.FirstEntryInRowIterator -scan -p 109
+employee> setiter -t employee -class org.apache.accumulo.core.iterators.FirstEntryInRowIterator -scan -p 109
 10
 
 b) 
 Scan the table for a range - you should get back only a record for each row ID
-root@indra employeeDB_employee> scan -b 100004 -e 100005
+employee> scan -b 100004 -e 100005
 100004 employee:DOB []    1960-04-16
 100005 employee:DOB []    1958-03-09
 
 c) Exit accumulo shell to count the number of records from Linux command line:
 
-./bin/accumulo shell -u root -p xxxxxxx -e "scan -np -t employeeDB_employee" | wc -l 
+./bin/accumulo shell -u root -p xxxxxxx -e "scan -np -t employee" | wc -l 
 
 224684
 
 You will see an extra record - this is created by Accumulo and should be disregarded in the count.
 
 d) Delete the iterator
-deleteiter -t employeeDB_employee -n firstEntry -scan
+deleteiter -t employee -n firstEntry -scan
 
 e) Verify if the iterator has been deleted
-listiter -t employeeDB_employee -scan
+listiter -t employee -scan
 
 firstEntry iterator should not be listed in the output
 

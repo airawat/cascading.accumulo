@@ -39,7 +39,7 @@ public class ReadHDFSTransposeWriteToAccumulo {
 		// ARGUMENTS
 		String inputPath = args[1];
 		String errorPath = args[2];
-		String accumuloUri = args[3];
+		String accumuloConnectionString = args[3];
 		//}}
 		
 		Fields inputFields = new Fields("EmpID","DOB","FName","LName","Gender","HireDate","DeptID");
@@ -53,17 +53,7 @@ public class ReadHDFSTransposeWriteToAccumulo {
 		HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
 		Tap sourceTapHDFS = new MultiSourceTap(sourceFilesGlob);
 		
-		/*
-		TupleEntryIterator tei = sourceTapHDFS.openForRead(hfp);
-		if(!tei.equals(null))
-		{
-			while(tei.hasNext())
-			{
-				System.out.println( tei.next() );
-			}
-			tei.close();
-		}
-		*/
+
 		//}}
 
 		// {{
@@ -77,13 +67,13 @@ public class ReadHDFSTransposeWriteToAccumulo {
 		// {{
 		// PIPE
 		//
-		Pipe readAndFlattenPipe = new Each("import", inputFields, new AccumuloLayoutTransformFunction(inputFields,"employee","",0),Fields.RESULTS  );
+		Pipe readAndFlattenPipe = new Each("import", inputFields, new TransposeToAccumuloLayoutFunction(inputFields,"employee","",0),Fields.RESULTS  );
 		readAndFlattenPipe = new Each(readAndFlattenPipe, new Identity(outputFields));
 		// }}
 		
 		// {{
 		// SINK tap - Accumulo
-		Tap sinkTapAccumulo = new AccumuloTap(accumuloUri,new AccumuloScheme(), SinkMode.UPDATE);
+		Tap sinkTapAccumulo = new AccumuloTap(accumuloConnectionString,new AccumuloScheme(), SinkMode.UPDATE);
 		// }}
 		
 		

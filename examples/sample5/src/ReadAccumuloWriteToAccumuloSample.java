@@ -15,6 +15,8 @@ import cascading.scheme.hadoop.TextLine;
 import cascading.tap.SinkMode;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
+import cascading.tuple.Fields;
+import cascading.tuple.TupleEntryCollector;
 import cascading.tuple.TupleEntryIterator;
 
 public class ReadAccumuloWriteToAccumuloSample {
@@ -23,9 +25,10 @@ public class ReadAccumuloWriteToAccumuloSample {
 
 		// {{
 		// ARGUMENTS
-		String accumuloSourceURI = args[1].toString();
-		String accumuloSourceScheme = args[2].toString();
-		String accumuloSinkURI = args[3].toString();
+		String accumuloSourceConnectionString = args[1].toString();
+		String accumuloQueryCriteria = args[2].toString();
+		String accumuloSinkConnectionString = args[3].toString();
+		String errorPath = args[4].toString();
 		// }}
 
 		// {{
@@ -43,37 +46,36 @@ public class ReadAccumuloWriteToAccumuloSample {
 			// {{
 			// SOURCE tap - Accumulo
 			HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
-			AccumuloTap sourceTapAccumulo = new AccumuloTap(accumuloSourceURI,
-					new AccumuloScheme(accumuloSourceScheme),
-					SinkMode.REPLACE);
-
-			/*
-			TupleEntryIterator tei = sourceTapAccumulo.openForRead(hfp);
-			while (tei.hasNext()) {
-				System.out.println(tei.next());
-			}
-			tei.close();
-			*/
+			AccumuloTap sourceTapAccumulo = new AccumuloTap(accumuloSourceConnectionString,
+					new AccumuloScheme(accumuloQueryCriteria));
 			// }}
 
 			// {{
 			// SINK tap - Accumulo
-			Tap sinkTapAccumulo = new AccumuloTap(accumuloSinkURI,
+			AccumuloTap sinkTapAccumulo = new AccumuloTap(accumuloSinkConnectionString,
 					new AccumuloScheme(), SinkMode.UPDATE);
+			// }}
+			
+			// {{
+			// TRAP tap - HDFS
+			TextLine sinkTextLineScheme = new TextLine();
+			sinkTextLineScheme.setNumSinkParts(1);
+			Tap sinkTapTrapHDFS = new Hfs(sinkTextLineScheme, errorPath,
+					SinkMode.REPLACE);
 			// }}
 
 			// {{
 			// PIPE
-			Pipe readPipe = new Each("read", new Identity());
+			Pipe readPipe = new Each("read", new Identity(sinkTapAccumulo.getDefaultAccumuloFields()));
 			//..........Add any transformation here..........
 			// }}
 
 			// {{
 			// EXECUTE
-			// Connect the taps, pipes, etc., into a flow & execute
-			Flow flow = new HadoopFlowConnector(properties).connect(
-					sourceTapAccumulo, sinkTapAccumulo, readPipe);
+			Flow flow = new HadoopFlowConnector(properties).connect("SourceAccumulo-SinkAccumulo",
+					sourceTapAccumulo, sinkTapAccumulo,sinkTapTrapHDFS, readPipe);
 			flow.complete();
+
 			// }}
 
 		} catch (Exception e) {

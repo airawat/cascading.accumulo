@@ -1,4 +1,4 @@
-The sample program in the “src” directory demonstrates how to transpose data in HDFS to an Accumulo-like/ish layout using Cascading, and write to HDFS.
+The sample program in the “src” directory demonstrates how to transpose data in a file in HDFS to an Accumulo-like layout, and write to HDFS.
 
 The following are steps/commands to create data,run the program, and view results.
 
@@ -37,26 +37,30 @@ EmpID,DOB,FName,LName,Gender,HireDate,DeptID
 
 3. Load the file to HDFS
 ==================================
-hadoop fs -put cascadingSamples/data/employeeDB/employees_active cascadingSamples/data/employeeDB/
+hadoop fs -put <<pathToFile>>/<<filename>> <<HDFSDestinationPath>>
 
 4. Run program
 ==========================================
-hadoop jar cascadingSamples/accumuloTapSample/jars/transposeToAccumuloLayout.jar TransposeToAccumuloLayout "cascadingSamples/data/employeeDB/employees_active" "cascadingSamples/Trap-transposeToAccumuloLayout" "cascadingSamples/Output-transposeToAccumuloLayout"
+hadoop jar <<pathToJar>>/transposeToAccumuloLayoutSample.jar TransposeToAccumuloLayoutSample "<<pathToInputFile>>" "<<pathToTrapFile>>" "<<pathToOutputFile>>"
 
 5. After execution, check for output
 ==========================================
+There following are my results..
+
+a) Output files:
+
 hadoop fs -ls -R cascadingSamples/Output-transposeToAccumuloLayout/part* | awk '{print $8}'
 
 cascadingSamples/Output-transposeToAccumuloLayout/part-00000
 cascadingSamples/Output-transposeToAccumuloLayout/part-00001
 
-6. Input
-==========================================
+b) Reference record for quick check:
+
 EmpID,DOB,FName,LName,Gender,HireDate,DeptID
 10003,1959-12-03,Parto,Bamford,M,1986-08-28,d004
 
-7. Output 
-==========================================
+c) Output: 
+
 hadoop fs -cat cascadingSamples/Output-transposeToAccumuloLayout/part-00001 | grep 10003
 
 10003	employee	DOB		1389333718333	1959-12-03

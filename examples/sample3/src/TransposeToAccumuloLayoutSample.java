@@ -61,18 +61,8 @@ public class TransposeToAccumuloLayoutSample {
 		GlobHfs sourceFilesGlob = new GlobHfs(sourceScheme, inputPath);
 		Tap sourceTapHDFS = new MultiSourceTap(sourceFilesGlob);
 		
-		/*
 		HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
-		TupleEntryIterator tei = sourceTapHDFS.openForRead(hfp);
-		if(!tei.equals(null))
-		{
-			while(tei.hasNext())
-			{
-				System.out.println( tei.next() );
-			}
-			tei.close();
-		}
-		*/
+		
 		//}}
 
 		// {{
@@ -82,23 +72,19 @@ public class TransposeToAccumuloLayoutSample {
 		Tap sinkTapTrapHDFS = new Hfs(sinkTextLineScheme, errorPath,
 				SinkMode.REPLACE);
 		// }}
-
-		// {{
-		// PIPE
-		Pipe readAndFlattenPipe = new Each("import", inputFields, new AccumuloLayoutTransformFunction(inputFields,"employee","",0),Fields.RESULTS  );
-		 // }}
-
-		
 		
 		// {{
 		// SINK tap - HDFS
 		Tap sinkTapHDFS = new Hfs(new TextLine(), outputHDFSPath,SinkMode.REPLACE);
 		// }}
-		
-		
+
+		// {{
+		// PIPE
+		Pipe readAndFlattenPipe = new Each("import", inputFields, new TransposeToAccumuloLayoutFunction(inputFields,"employee","",0),Fields.RESULTS  );
+		// }}
+
 		// {{
 		// EXECUTE
-		// Connect the taps, pipes, etc., into a flow & execute
 		Flow flow = new HadoopFlowConnector(properties).connect(
 				"ReadSourceTransposeAndSink",sourceTapHDFS, sinkTapHDFS, sinkTapTrapHDFS,readAndFlattenPipe);
 		flow.complete();

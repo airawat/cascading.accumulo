@@ -46,7 +46,7 @@ public class ReadFormattedFileWriteToAccumulo {
 		// ARGUMENTS
 		String inputPath = args[1];
 		String errorPath = args[2];
-		String accumuloUri = args[3];
+		String accumuloConnectionString = args[3];
 		//}}
 		
 		// {{
@@ -58,19 +58,13 @@ public class ReadFormattedFileWriteToAccumulo {
 
 		HadoopFlowProcess hfp = new HadoopFlowProcess(jobConf);
 		Tap sourceTapHDFS = new MultiSourceTap(sourceFilesGlob);
-		
-		/*
-		TupleEntryIterator tei = sourceTapHDFS.openForRead(hfp);
-		if(!tei.equals(null))
-		{
-			while(tei.hasNext())
-			{
-				System.out.println( tei.next() );
-			}
-			tei.close();
-		}
-		*/
+
 		//}}
+		
+		// {{
+		// SINK tap - Accumulo
+		AccumuloTap sinkTapAccumulo = new AccumuloTap(accumuloConnectionString,new AccumuloScheme(), SinkMode.UPDATE);
+		// }}
 
 		// {{
 		// TRAP tap - HDFS
@@ -82,16 +76,9 @@ public class ReadFormattedFileWriteToAccumulo {
 
 		// {{
 		// PIPE
-		Pipe readPipe = new Each( "read", new Identity() );
+		Pipe readPipe = new Each( "read", new Identity(sinkTapAccumulo.getDefaultAccumuloFields()) );
 		// }}
 
-		
-		
-		// {{
-		// SINK tap - Accumulo
-		Tap sinkTapAccumulo = new AccumuloTap(accumuloUri,new AccumuloScheme(), SinkMode.UPDATE);
-		// }}
-		
 		
 		// {{
 		// EXECUTE

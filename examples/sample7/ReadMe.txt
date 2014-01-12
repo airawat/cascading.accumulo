@@ -19,7 +19,7 @@ root@indra employees_active> clear
 
 Command to run the program
 =================================================
-hadoop jar cascadingSamples/accumuloTapSample/jars/readHDFSTransposeWriteToAccumulo.jar  ReadHDFSTransposeWriteToAccumulo "cascadingSamples/data/employeeDB/employees_active" "cascadingSamples/trap-sourceHDFSSinkAccumuloSample" "accumulo://employees_active?instance=indra&user=root&password=sun123123&zookeepers=cdh-dn01:2181" 
+hadoop jar <<pathToJar>>/readHDFSTransposeWriteToAccumulo.jar  ReadHDFSTransposeWriteToAccumulo “<<pathToInputFileInHDFS>>” “<<pathToTrapFileInHDFS>” "accumulo://employees_active?instance=inst&user=root&password=pwd&zookeepers=zooserver:2181" 
 
 Results in Accumuo
 =================================================

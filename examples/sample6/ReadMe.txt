@@ -3,10 +3,11 @@ The sample program in the “src” directory demonstrates how to read data in A
 Run the program
 ============================================
 
-hadoop jar cascadingSamples/accumuloTapSample/jars/readAccumuloWriteToHDFSAsIsSample.jar ReadAccumuloWriteToHDFSAsIsSample "accumulo://employeeDB_employee?instance=indra&user=root&password=IAdler&zookeepers=cdh-dn01:2181" "rowKeyRangeStart=100004&rowKeyRangeEnd=99999" "cascadingSamples/Output-ReadAccumuloWriteToHDFSAsIsSample"
+hadoop jar <<pathToJar>>/readAccumuloWriteToHDFSAsIsSample.jar ReadAccumuloWriteToHDFSAsIsSample "accumulo://employee?instance=inst&user=root&password=pwd&zookeepers=zooserver:2181" "rowKeyRangeStart=100004&rowKeyRangeEnd=99999" "cascadingSamples/Output-ReadAccumuloWriteToHDFSAsIsSample"
 
 Verify
 ============================================
+The following is the output from my run of the program..
 
 a) Check for the output file
 
@@ -16,7 +17,7 @@ cascadingSamples/Output-ReadAccumuloWriteToHDFSAsIsSample/part-00000
 b) Get record count in Accumulo
 
 From Linux command line, run the command-
-./bin/accumulo shell -u root -p IAdler -e  "scan -np -t employeeDB_employee" | wc -l 
+./bin/accumulo shell -u root -p pwd -e  "scan -np -t employee" | wc -l 
 1348099
 (ignore the one extra record)
 
@@ -26,7 +27,7 @@ hadoop fs -cat cascadingSamples/Output-ReadAccumuloWriteToHDFSAsIsSample/part* |
 1348098
 
 d) Look up a record in Accumulo
-root@indra employeeDB_employee> scan -b 99999 -e 99999/0
+employee> scan -b 99999 -e 99999/0
 99999 employee:DOB []    1959-10-09
 99999 employee:DeptID []    d004
 99999 employee:FName []    Gila

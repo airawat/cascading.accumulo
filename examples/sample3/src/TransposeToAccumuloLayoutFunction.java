@@ -8,17 +8,13 @@ import cascading.tuple.Fields;
 import cascading.tuple.Tuple;
 import cascading.tuple.TupleEntry;
 
-//Enhance this - it currently accepts only one column family;  Make it a key value pair of tuple item index, column family
-
-public class AccumuloLayoutTransformFunction extends BaseOperation implements Function {
+public class TransposeToAccumuloLayoutFunction extends BaseOperation implements Function {
 	
 	private String colFamily;
 	private int keyIndex =0;
 	private String colVisibility = "";
 
-
-	
-	public AccumuloLayoutTransformFunction(Fields fieldDeclaration, String colFamily, String colVisibility,int keyZeroBasedIndex)
+	public TransposeToAccumuloLayoutFunction(Fields fieldDeclaration, String colFamily, String colVisibility,int keyZeroBasedIndex)
 	{
 		this.colFamily=colFamily;
 		this.keyIndex=keyZeroBasedIndex;
