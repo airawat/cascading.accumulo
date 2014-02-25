@@ -1,1 +1,0 @@
-The sample program in the “src” directory demonstrates how to count the records in an Accumulo table from Cascading using the Cascading extensions for Accumulo
