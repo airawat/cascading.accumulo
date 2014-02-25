@@ -5,6 +5,7 @@ Examples for using the Cascading extensions for Accumulo are available at-
 https://github.com/airawat/cascading.accumulo.examples
 
 All examples include sample code, scripts, and data.
+The following is a listing of examples and functionality covered-
 
 example 1:
 Demonstrates how to query data in Accumulo from Cascading.
