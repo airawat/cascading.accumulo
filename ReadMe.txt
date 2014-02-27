@@ -1,5 +1,10 @@
 This repository includes source code for Cascading extensions for Accumulo developed by talk3 (Cascading 2.5.2, Accumulo 1.5.0).
 
+Licensing
+=========
+cascading.accumulo is licensed under the Apache 2.0 open source license: 
+http://opensource.org/licenses/Apache-2.0.
+
 Examples for using the Cascading extensions for Accumulo are available at-
 =========================================================================== 
 https://github.com/airawat/cascading.accumulo.examples
@@ -27,3 +32,4 @@ Demonstrates how to read data in Accumulo and write (back) to Accumulo - useful 
 
 example 7:
 Demonstrates how to export data in Accumulo into Mysql
+
