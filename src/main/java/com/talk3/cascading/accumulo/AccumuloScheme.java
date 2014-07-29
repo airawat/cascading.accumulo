@@ -26,6 +26,7 @@ import org.apache.accumulo.core.data.Key;
 import org.apache.accumulo.core.data.Mutation;
 import org.apache.accumulo.core.data.Range;
 import org.apache.accumulo.core.data.Value;
+import org.apache.accumulo.core.iterators.user.AgeOffFilter;
 import org.apache.accumulo.core.iterators.user.RegExFilter;
 import org.apache.accumulo.core.security.ColumnVisibility;
 import org.apache.accumulo.core.util.Pair;
@@ -54,6 +55,8 @@ public class AccumuloScheme extends
     private String columnFamilyRegex = null;
     private String columnQualifierRegex = null;
     private String valueRegex = null;
+    private Long maxAge = null;
+    private Long minAge = null;
     private Fields accumuloFields = new Fields("rowID", "colF", "colQ", "colVis",
             "colTimestamp", "colVal");
 
@@ -100,6 +103,10 @@ public class AccumuloScheme extends
                         } else if (pair[0].equals("valueRegex")) {
                             addRegexFilter = true;
                             valueRegex = pair[1];
+                        } else if (pair[0].equals("minAge")) {
+                          minAge = Long.parseLong(pair[1]);
+                        } else if (pair[0].equals("maxAge")) {
+                          maxAge = Long.parseLong(pair[1]);
                         }
                     }
 
@@ -187,7 +194,7 @@ public class AccumuloScheme extends
             resultTuple.add(new String(colQValue.get(), "UTF-8"));
 
             sourceCall.getIncomingEntry().setTuple(resultTuple);
-           
+
             return true;
         } catch (Exception e) {
             LOG.error("Error in AccumuloScheme.source", e);
@@ -254,6 +261,21 @@ public class AccumuloScheme extends
                         this.columnFamilyRegex, this.columnQualifierRegex,
                         this.valueRegex, false);
                 AccumuloInputFormat.addIterator(conf, regex);
+            }
+
+            if (maxAge != null) {
+              IteratorSetting maxAgeFilter = new IteratorSetting(48, "maxAgeFilter",
+                  AgeOffFilter.class);
+              AgeOffFilter.setTTL(maxAgeFilter, maxAge);
+              AccumuloInputFormat.addIterator(conf, maxAgeFilter);
+            }
+
+            if (minAge != null) {
+              IteratorSetting minAgeFilter = new IteratorSetting(49, "minAgeFilter",
+                  AgeOffFilter.class);
+              AgeOffFilter.setTTL(minAgeFilter, minAge + 1);
+              AgeOffFilter.setNegate(minAgeFilter, true);
+              AccumuloInputFormat.addIterator(conf, minAgeFilter);
             }
         }
     }
